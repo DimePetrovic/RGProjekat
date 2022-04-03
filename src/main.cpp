@@ -173,18 +173,18 @@ int main() {
 
     // load models
     // -----------
-    Model ourModel("resources/objects/cottage/cottage.obj");
+    Model ourModel("resources/objects/scene/scene.obj");
     ourModel.SetShaderTextureNamePrefix("material.");
 
     PointLight pointLight ;
     pointLight.position = glm::vec3(4.0f, 4.0, 0.0);
-    pointLight.ambient = glm::vec3(0.5, 0.5, 0.5);
+    pointLight.ambient = glm::vec3(1.0, 1.0, 1.0);
     pointLight.diffuse = glm::vec3(0.6, 0.6, 0.6);
     pointLight.specular = glm::vec3(1.0, 1.0, 1.0);
 
     pointLight.constant = 1.0f;
-    pointLight.linear = 0.09f;
-    pointLight.quadratic = 0.032f;
+    pointLight.linear = 0.0f;
+    pointLight.quadratic = 0.0f;
 
 
     // render loop
