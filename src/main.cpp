@@ -162,12 +162,12 @@ int main() {
 
     vector<std::string> faces
             {
-                    FileSystem::getPath("resources/textures/skybox/px.png"),
-                    FileSystem::getPath("resources/textures/skybox/nx.png"),
-                    FileSystem::getPath("resources/textures/skybox/py.png"),
-                    FileSystem::getPath("resources/textures/skybox/ny.png"),
-                    FileSystem::getPath("resources/textures/skybox/nz.png"),
-                    FileSystem::getPath("resources/textures/skybox/pz.png")
+                    FileSystem::getPath("resources/textures/skybox/posx.jpg"),
+                    FileSystem::getPath("resources/textures/skybox/negx.jpg"),
+                    FileSystem::getPath("resources/textures/skybox/posy.jpg"),
+                    FileSystem::getPath("resources/textures/skybox/negy.jpg"),
+                    FileSystem::getPath("resources/textures/skybox/posz.jpg"),
+                    FileSystem::getPath("resources/textures/skybox/negz.jpg")
             };
     unsigned int cubemapTexture = loadCubemap(faces);
 
@@ -183,8 +183,8 @@ int main() {
     pointLight.specular = glm::vec3(1.0, 1.0, 1.0);
 
     pointLight.constant = 1.0f;
-    pointLight.linear = 0.0f;
-    pointLight.quadratic = 0.0f;
+    pointLight.linear = 0.09f;
+    pointLight.quadratic = 0.032f;
 
 
     // render loop
