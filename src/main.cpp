@@ -201,8 +201,16 @@ int main() {
         glm::vec3(-7.5f, -1.5f, -26.27f),
         glm::vec3(-3.3f, -1.75f,  11.85f),
         glm::vec3(21.92f, -2.25f,  -2.5f),
-        glm::vec3(-3.3f, 7.75f,  11.85f)
+        //glm::vec3(20.95f, 3.62f,  -9.44f)
     };
+    //-5.5 3.6 2.65 Pozicija prvog pointlighta
+    //-21.91f, 3.62f,  2.65f poz drugog pointlighta
+    //19.25f, 3.62f,  3.2f poz treceg pointlighta
+    //35.15f, 3.62f,  3.0f poz cetvrtog pointlighta
+    //34.65f, 1.32f,  -11.75f poz petog pointlighta
+    //-5.9f, 1.32f,  -11.75f poz sestog pointlighta
+    //-19.7f, 3.62f,  -9.35f poz sedmog pointlighta
+    //20.95f, 3.62f,  -9.44f poz osmog pointlighta
 
     blendingShader.use();
     blendingShader.setInt("texture1", 0);
@@ -213,14 +221,24 @@ int main() {
     ourModel.SetShaderTextureNamePrefix("material.");
 
     PointLight pointLight ;
-    pointLight.position = glm::vec3(8.0f, 8.0, 3.0);
-    pointLight.ambient = glm::vec3(0.1, 0.1, 0.1);
+    pointLight.position = glm::vec3(20.95f, 3.62f,  -9.44f);
+    pointLight.ambient = glm::vec3(0.3, 0.3, 0.3);
     pointLight.diffuse = glm::vec3(0.6, 0.6, 0.6);
     pointLight.specular = glm::vec3(1.0, 1.0, 1.0);
 
     pointLight.constant = 1.0f;
-    pointLight.linear = 0.18f;
-    pointLight.quadratic = 0.064f;
+    pointLight.linear = 0.09f;
+    pointLight.quadratic = 0.032f;
+// ////////////////////////////////////////////////
+//  PointLight pointLight2 ;
+//  pointLight2.position = glm::vec3(-21.91f, 3.62f,  2.65f);
+//  pointLight2.ambient = glm::vec3(0.3, 0.3, 0.3);
+//  pointLight2.diffuse = glm::vec3(0.6, 0.6, 0.6);
+//  pointLight2.specular = glm::vec3(1.0, 1.0, 1.0);
+
+//  pointLight2.constant = 1.0f;
+//  pointLight2.linear = 0.09f;
+//  pointLight2.quadratic = 0.032f;
 
 
     // render loop
