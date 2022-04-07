@@ -219,6 +219,8 @@ int main() {
     // -----------
     Model ourModel("resources/objects/scene/scene.obj");
     ourModel.SetShaderTextureNamePrefix("material.");
+    //Model billboardModel("resources/objects/billboard/billboard.obj");
+    //billboardModel.SetShaderTextureNamePrefix("material.");
 
     PointLight pointLight ;
     pointLight.position = glm::vec3(20.95f, 3.62f,  -9.44f);
@@ -286,6 +288,7 @@ int main() {
         model = glm::scale(model, glm::vec3(0.05f));    // it's a bit too big for our scene, so scale it down
         ourShader.setMat4("model", model);
         ourModel.Draw(ourShader);
+        //billboardModel.Draw(ourShader);
 
         glBindVertexArray(transparentVAO);
         glBindTexture(GL_TEXTURE_2D, transparentTexture);

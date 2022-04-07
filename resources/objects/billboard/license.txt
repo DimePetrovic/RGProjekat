@@ -1,0 +1,11 @@
+Model Information:
+* title:	Simple low-poly billboard (16-9)
+* source:	https://sketchfab.com/3d-models/simple-low-poly-billboard-16-9-86c40bba17b843a090fb380e8b829eab
+* author:	daviddickball (https://sketchfab.com/daviddickball)
+
+Model License:
+* license type:	CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
+* requirements:	Author must be credited. Commercial use is allowed.
+
+If you use this 3D model in your project be sure to copy paste this credit wherever you share it:
+This work is based on "Simple low-poly billboard (16-9)" (https://sketchfab.com/3d-models/simple-low-poly-billboard-16-9-86c40bba17b843a090fb380e8b829eab) by daviddickball (https://sketchfab.com/daviddickball) licensed under CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
