@@ -42,19 +42,8 @@ bool firstMouse = true;
 float deltaTime = 0.0f;
 float lastFrame = 0.0f;
 
-struct PointLight {
-    glm::vec3 position;
-    glm::vec3 ambient;
-    glm::vec3 diffuse;
-    glm::vec3 specular;
-
-    float constant;
-    float linear;
-    float quadratic;
-};
 
     Camera camera(glm::vec3(0.0f, 0.0f, -0.3f));
-    PointLight pointLight;
 
 int main() {
     // glfw: initialize and configure
@@ -203,14 +192,6 @@ int main() {
         glm::vec3(21.92f, -2.25f,  -2.5f),
         //glm::vec3(20.95f, 3.62f,  -9.44f)
     };
-    //-5.5 3.6 2.65 Pozicija prvog pointlighta
-    //-21.91f, 3.62f,  2.65f poz drugog pointlighta
-    //19.25f, 3.62f,  3.2f poz treceg pointlighta
-    //35.15f, 3.62f,  3.0f poz cetvrtog pointlighta
-    //34.65f, 1.32f,  -11.75f poz petog pointlighta
-    //-5.9f, 1.32f,  -11.75f poz sestog pointlighta
-    //-19.7f, 3.62f,  -9.35f poz sedmog pointlighta
-    //20.95f, 3.62f,  -9.44f poz osmog pointlighta
 
     blendingShader.use();
     blendingShader.setInt("texture1", 0);
@@ -219,29 +200,8 @@ int main() {
     // -----------
     Model ourModel("resources/objects/scene/scene.obj");
     ourModel.SetShaderTextureNamePrefix("material.");
-    //Model billboardModel("resources/objects/billboard/billboard.obj");
-    //billboardModel.SetShaderTextureNamePrefix("material.");
-
-    PointLight pointLight ;
-    pointLight.position = glm::vec3(20.95f, 3.62f,  -9.44f);
-    pointLight.ambient = glm::vec3(0.3, 0.3, 0.3);
-    pointLight.diffuse = glm::vec3(0.6, 0.6, 0.6);
-    pointLight.specular = glm::vec3(1.0, 1.0, 1.0);
-
-    pointLight.constant = 1.0f;
-    pointLight.linear = 0.09f;
-    pointLight.quadratic = 0.032f;
-// ////////////////////////////////////////////////
-//  PointLight pointLight2 ;
-//  pointLight2.position = glm::vec3(-21.91f, 3.62f,  2.65f);
-//  pointLight2.ambient = glm::vec3(0.3, 0.3, 0.3);
-//  pointLight2.diffuse = glm::vec3(0.6, 0.6, 0.6);
-//  pointLight2.specular = glm::vec3(1.0, 1.0, 1.0);
-
-//  pointLight2.constant = 1.0f;
-//  pointLight2.linear = 0.09f;
-//  pointLight2.quadratic = 0.032f;
-
+    Model billboardModel("resources/objects/billboard/billboard.obj");
+    billboardModel.SetShaderTextureNamePrefix("material.");
 
     // render loop
     // -----------
@@ -265,13 +225,73 @@ int main() {
         // don't forget to enable shader before setting uniforms
         ourShader.use();
         //pointLight.position = glm::vec3(-4.0f , 8.0f, 2.0f);
-        ourShader.setVec3("pointLight.position", pointLight.position);
-        ourShader.setVec3("pointLight.ambient", pointLight.ambient);
-        ourShader.setVec3("pointLight.diffuse", pointLight.diffuse);
-        ourShader.setVec3("pointLight.specular", pointLight.specular);
-        ourShader.setFloat("pointLight.constant", pointLight.constant);
-        ourShader.setFloat("pointLight.linear", pointLight.linear);
-        ourShader.setFloat("pointLight.quadratic", pointLight.quadratic);
+        float linear=0.22f;
+        float quadratic=0.2f;
+
+        ourShader.setVec3("pointLight[0].position", glm::vec3(-5.5f, 3.6f, 2.65f));
+        ourShader.setVec3("pointLight[0].ambient", glm::vec3(0.25, 0.25, 0.25));
+        ourShader.setVec3("pointLight[0].diffuse", glm::vec3(0.7, 0.7, 0.7));
+        ourShader.setVec3("pointLight[0].specular", glm::vec3(0.15, 0.15, 0.15));
+        ourShader.setFloat("pointLight[0].constant", 1.0f);
+        ourShader.setFloat("pointLight[0].linear", linear);
+        ourShader.setFloat("pointLight[0].quadratic",  quadratic);
+
+        ourShader.setVec3("pointLight[1].position", glm::vec3(-21.91f, 3.62f,  2.65f));
+        ourShader.setVec3("pointLight[1].ambient", glm::vec3(0.25, 0.25, 0.25));
+        ourShader.setVec3("pointLight[1].diffuse", glm::vec3(0.7, 0.7, 0.7));
+        ourShader.setVec3("pointLight[1].specular", glm::vec3(0.15, 0.15, 0.15));
+        ourShader.setFloat("pointLight[1].constant", 1.0f);
+        ourShader.setFloat("pointLight[1].linear", linear);
+        ourShader.setFloat("pointLight[1].quadratic",  quadratic);
+
+        ourShader.setVec3("pointLight[2].position", glm::vec3(19.25f, 3.62f,  3.2f));
+        ourShader.setVec3("pointLight[2].ambient", glm::vec3(0.25, 0.25, 0.25));
+        ourShader.setVec3("pointLight[2].diffuse", glm::vec3(0.7, 0.7, 0.7));
+        ourShader.setVec3("pointLight[2].specular", glm::vec3(0.15, 0.15, 0.15));
+        ourShader.setFloat("pointLight[2].constant", 1.0f);
+        ourShader.setFloat("pointLight[2].linear", linear);
+        ourShader.setFloat("pointLight[2].quadratic",  quadratic);
+
+        ourShader.setVec3("pointLight[3].position", glm::vec3(35.15f, 3.62f,  3.0f));
+        ourShader.setVec3("pointLight[3].ambient", glm::vec3(0.25, 0.25, 0.25));
+        ourShader.setVec3("pointLight[3].diffuse", glm::vec3(0.7, 0.7, 0.7));
+        ourShader.setVec3("pointLight[3].specular", glm::vec3(0.15, 0.15, 0.15));
+        ourShader.setFloat("pointLight[3].constant", 1.0f);
+        ourShader.setFloat("pointLight[3].linear", linear);
+        ourShader.setFloat("pointLight[3].quadratic",  quadratic);
+
+        ourShader.setVec3("pointLight[4].position", glm::vec3(34.65f, 1.32f,  -11.75f));
+        ourShader.setVec3("pointLight[4].ambient", glm::vec3(0.25, 0.25, 0.25));
+        ourShader.setVec3("pointLight[4].diffuse", glm::vec3(0.7, 0.7, 0.7));
+        ourShader.setVec3("pointLight[4].specular", glm::vec3(0.15, 0.15, 0.15));
+        ourShader.setFloat("pointLight[4].constant", 1.0f);
+        ourShader.setFloat("pointLight[4].linear", linear);
+        ourShader.setFloat("pointLight[4].quadratic",  quadratic);
+
+        ourShader.setVec3("pointLight[5].position", glm::vec3(-5.9f, 1.32f,  -11.75f));
+        ourShader.setVec3("pointLight[5].ambient", glm::vec3(0.25, 0.25, 0.25));
+        ourShader.setVec3("pointLight[5].diffuse", glm::vec3(0.7, 0.7, 0.7));
+        ourShader.setVec3("pointLight[5].specular", glm::vec3(0.15, 0.15, 0.15));
+        ourShader.setFloat("pointLight[5].constant", 1.0f);
+        ourShader.setFloat("pointLight[5].linear", linear);
+        ourShader.setFloat("pointLight[5].quadratic",  quadratic);
+
+        ourShader.setVec3("pointLight[6].position", glm::vec3(-19.7f, 3.62f,  -9.35f));
+        ourShader.setVec3("pointLight[6].ambient", glm::vec3(0.25, 0.25, 0.25));
+        ourShader.setVec3("pointLight[6].diffuse", glm::vec3(0.7, 0.7, 0.7));
+        ourShader.setVec3("pointLight[6].specular", glm::vec3(0.15, 0.15, 0.15));
+        ourShader.setFloat("pointLight[6].constant", 1.0f);
+        ourShader.setFloat("pointLight[6].linear", linear);
+        ourShader.setFloat("pointLight[6].quadratic",  quadratic);
+
+        ourShader.setVec3("pointLight[7].position", glm::vec3(20.95f, 3.62f,  -9.44f));
+        ourShader.setVec3("pointLight[7].ambient", glm::vec3(0.25, 0.25, 0.25));
+        ourShader.setVec3("pointLight[7].diffuse", glm::vec3(0.7, 0.7, 0.7));
+        ourShader.setVec3("pointLight[7].specular", glm::vec3(0.15, 0.15, 0.15));
+        ourShader.setFloat("pointLight[7].constant", 1.0f);
+        ourShader.setFloat("pointLight[7].linear", linear);
+        ourShader.setFloat("pointLight[7].quadratic",  quadratic);
+
         ourShader.setVec3("viewPosition", camera.Position);
         ourShader.setFloat("material.shininess", 32.0f);
         // view/projection transformations
@@ -281,6 +301,8 @@ int main() {
         ourShader.setMat4("projection", projection);
         ourShader.setMat4("view", view);
 
+        glEnable(GL_CULL_FACE);
+        glCullFace(GL_BACK);
         // render the loaded model
         glm::mat4 model = glm::mat4(1.0f);
         model = glm::translate(model,
@@ -288,8 +310,14 @@ int main() {
         model = glm::scale(model, glm::vec3(0.05f));    // it's a bit too big for our scene, so scale it down
         ourShader.setMat4("model", model);
         ourModel.Draw(ourShader);
-        //billboardModel.Draw(ourShader);
 
+        model = glm::mat4(1.0f);
+        model = glm::translate(model,
+                               glm::vec3(11.0f, 1.5f, -11.75f));
+        model = glm::scale(model, glm::vec3(0.2f, 0.2f,0.2f));
+        ourShader.setMat4("model", model);
+        billboardModel.Draw(ourShader);
+        glDisable(GL_CULL_FACE);
         glBindVertexArray(transparentVAO);
         glBindTexture(GL_TEXTURE_2D, transparentTexture);
         for (unsigned int i = 0; i < graffiti.size(); i++)
