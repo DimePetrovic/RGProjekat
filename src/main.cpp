@@ -294,7 +294,8 @@ int main() {
         //pointLight.position = glm::vec3(-4.0f , 8.0f, 2.0f);
         float linear=0.35f;
         float quadratic=0.44f;
-                      // prvo svetlo -5.6f, 3.6f, 2.65f
+        // prvo svetlo -5.6f, 3.6f, 2.65f
+        //hmmm...
         ourShader.setVec3("pointLight[0].position", glm::vec3(35.0f, 1.30f, -2.8f));
         ourShader.setVec3("pointLight[0].ambient", glm::vec3(0.1, 0.1, 0.1));
         ourShader.setVec3("pointLight[0].diffuse", glm::vec3(10.0f, 1.0, 1.0));
