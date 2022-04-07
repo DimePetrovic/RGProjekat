@@ -296,9 +296,9 @@ int main() {
         float quadratic=0.44f;
         // prvo svetlo -5.6f, 3.6f, 2.65f
         //hmmm...
-        ourShader.setVec3("pointLight[0].position", glm::vec3(35.0f, 1.30f, -2.8f));
+        ourShader.setVec3("pointLight[0].position", glm::vec3(33.8f, 1.15f, -2.8f));
         ourShader.setVec3("pointLight[0].ambient", glm::vec3(0.1, 0.1, 0.1));
-        ourShader.setVec3("pointLight[0].diffuse", glm::vec3(10.0f, 1.0, 1.0));
+        ourShader.setVec3("pointLight[0].diffuse", glm::vec3(2.0f, 2.0, 1.0));
         ourShader.setVec3("pointLight[0].specular", glm::vec3(0.15, 0.15, 0.15));
         ourShader.setFloat("pointLight[0].constant", 1.0f);
         ourShader.setFloat("pointLight[0].linear", linear);
