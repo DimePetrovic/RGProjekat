@@ -198,8 +198,10 @@ int main() {
         glm::vec3(-7.5f, -1.5f, -26.27f),
         glm::vec3(-2.9f, -1.75f,  11.85f),
         glm::vec3(-11.78f, -2.25f,  -2.5f),
-        //glm::vec3(-4.6f, 1.15f, -2.6f)
+        glm::vec3(0.0f, -2.5f, 30.0f)
     };
+    //z=5.0f prva granica
+    //z=-12.0f druga
 
     blendingShader.use();
     blendingShader.setInt("texture1", 0);
@@ -270,6 +272,8 @@ int main() {
     streetLight.SetShaderTextureNamePrefix("material.");
     Model streetLight2("resources/objects/streetlight/streetlight.obj");
     streetLight2.SetShaderTextureNamePrefix("material.");
+    Model shrub("resources/objects/cliff_shurb/cliff_shurb.obj");
+    shrub.SetShaderTextureNamePrefix("material.");
 
     // render loop
     // -----------
@@ -297,8 +301,6 @@ int main() {
         //pointLight.position = glm::vec3(-4.0f , 8.0f, 2.0f);
         float linear=0.35f;
         float quadratic=0.44f;
-        // prvo svetlo -5.6f, 3.6f, 2.65f
-        // tamo na kraju svetlo 34.65f, 1.32f,  -11.75f
         glm::vec3 ambient=glm::vec3(0.2f, 0.2f, 0.2f);
 
         ourShader.setVec3("pointLight[0].position", glm::vec3(33.8f, 1.15f, -2.8f));
@@ -383,6 +385,26 @@ int main() {
         model = glm::scale(model, glm::vec3(0.05f));    // it's a bit too big for our scene, so scale it down
         ourShader.setMat4("model", model);
         ourModel.Draw(ourShader);
+
+        float z=5.0f;
+        bool forward=true;
+        if(forward){
+            z-=glfwGetTime();
+            if(z<-12.0f)
+                forward=false;
+        }
+        else{
+            z+=glfwGetTime();
+            if(z>5.0f)
+                forward=true;
+        }
+
+        model = glm::mat4(1.0f);
+        model = glm::translate(model,
+                               glm::vec3(-2.5f, -3.0f+abs(sin(glfwGetTime())), z));
+        model = glm::scale(model, glm::vec3(0.75f));    // it's a bit too big for our scene, so scale it down
+        ourShader.setMat4("model", model);
+        shrub.Draw(ourShader);
 
         glEnable(GL_CULL_FACE);
         glCullFace(GL_BACK);
