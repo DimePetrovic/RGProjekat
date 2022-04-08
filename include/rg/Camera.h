@@ -48,20 +48,16 @@ public:
 
     void ProcessKeyboard(Direction direction, float deltaTime) {
         float velocity = MovementSpeed * deltaTime;
-       switch (direction) {
-           case FORWARD: {
-              Position += Front * velocity;
-           }break;
-           case BACKWARD: {
-                Position -= Front * velocity;
-           }break;
-           case LEFT: {
-                Position -= Right * velocity;
-           }break;
-           case RIGHT: {
-                Position += Right * velocity;
-           }break;
-       }
+        if (direction == FORWARD)
+            Position += Front * velocity;
+        if (direction == BACKWARD)
+            Position -= Front * velocity;
+        if (direction == LEFT)
+            Position -= Right * velocity;
+        if (direction == RIGHT)
+            Position += Right * velocity;
+        // make sure the user stays at the ground level
+        Position.y = -1.35f; // <-- this one-liner keeps the user at the ground level (xz plane)
     }
 
     void ProcessMouseMovement(float xoffset, float yoffset, bool constrainPitch = true) {

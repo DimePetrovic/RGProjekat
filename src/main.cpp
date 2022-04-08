@@ -66,7 +66,7 @@ int main() {
 
     // glfw window creation
     // --------------------
-    GLFWwindow *window = glfwCreateWindow(SCR_WIDTH, SCR_HEIGHT, "LearnOpenGL", NULL, NULL);
+    GLFWwindow *window = glfwCreateWindow(SCR_WIDTH, SCR_HEIGHT, "The Day after", NULL, NULL);
     if (window == NULL) {
         std::cout << "Failed to create GLFW window" << std::endl;
         glfwTerminate();
@@ -173,7 +173,7 @@ int main() {
             // positions         // texture Coords (swapped y coordinates because texture is flipped upside down)
             0.0f,  0.5f,  0.0f,  0.0f,  0.0f,
             0.0f, -0.5f,  0.0f,  0.0f,  1.0f,
-            1.0f, -0.5f,  0.0f,  1.0f,  1.0f,
+            1.0f,-0.5f,  0.0f,  1.0f,  1.0f,
 
             0.0f,  0.5f,  0.0f,  0.0f,  0.0f,
             1.0f, -0.5f,  0.0f,  1.0f,  1.0f,
@@ -192,14 +192,17 @@ int main() {
     glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 5 * sizeof(float), (void*)(3 * sizeof(float)));
     glBindVertexArray(0);
 
-    int transparentTexture = loadTexture(FileSystem::getPath("resources/textures/mita.jpg").c_str());
+    int transparentTexture = loadTexture(FileSystem::getPath("resources/textures/2k32.png").c_str());
 
     vector<glm::vec3> graffiti{
         glm::vec3(-7.5f, -1.5f, -26.27f),
-        glm::vec3(-3.3f, -1.75f,  11.85f),
-        glm::vec3(21.92f, -2.25f,  -2.5f),
-        //glm::vec3(35.0f, 1.30f, -2.8f)
+        glm::vec3(-2.9f, -1.75f,  11.85f),
+        glm::vec3(-11.78f, -2.25f,  -2.5f),
+        //glm::vec3(-4.6f, 1.15f, -2.6f)
     };
+
+    blendingShader.use();
+    blendingShader.setInt("texture1", 0);
 //**********************************************************************************************
     unsigned int hdrFBO;
     glGenFramebuffers(1, &hdrFBO);
@@ -251,8 +254,6 @@ int main() {
     }
 //***********************************************************************************************
 
-    blendingShader.use();
-    blendingShader.setInt("texture1", 0);
     bloomShader.use();
     bloomShader.setInt("image", 0);
 
@@ -267,6 +268,8 @@ int main() {
     billboardModel.SetShaderTextureNamePrefix("material.");
     Model streetLight("resources/objects/streetlight/streetlight.obj");
     streetLight.SetShaderTextureNamePrefix("material.");
+    Model streetLight2("resources/objects/streetlight/streetlight.obj");
+    streetLight2.SetShaderTextureNamePrefix("material.");
 
     // render loop
     // -----------
@@ -295,17 +298,19 @@ int main() {
         float linear=0.35f;
         float quadratic=0.44f;
         // prvo svetlo -5.6f, 3.6f, 2.65f
-        //hmmm...
+        // tamo na kraju svetlo 34.65f, 1.32f,  -11.75f
+        glm::vec3 ambient=glm::vec3(0.2f, 0.2f, 0.2f);
+
         ourShader.setVec3("pointLight[0].position", glm::vec3(33.8f, 1.15f, -2.8f));
-        ourShader.setVec3("pointLight[0].ambient", glm::vec3(0.1, 0.1, 0.1));
-        ourShader.setVec3("pointLight[0].diffuse", glm::vec3(2.0f, 2.0, 1.0));
+        ourShader.setVec3("pointLight[0].ambient", ambient);
+        ourShader.setVec3("pointLight[0].diffuse", glm::vec3(1.7f, 1.7, 1.0));
         ourShader.setVec3("pointLight[0].specular", glm::vec3(0.15, 0.15, 0.15));
         ourShader.setFloat("pointLight[0].constant", 1.0f);
         ourShader.setFloat("pointLight[0].linear", linear);
         ourShader.setFloat("pointLight[0].quadratic",  quadratic);
 
         ourShader.setVec3("pointLight[1].position", glm::vec3(-21.91f, 3.62f,  2.65f));
-        ourShader.setVec3("pointLight[1].ambient", glm::vec3(0.1, 0.1, 0.1));
+        ourShader.setVec3("pointLight[1].ambient", ambient);
         ourShader.setVec3("pointLight[1].diffuse", glm::vec3(0.4, 0.4, 0.4));
         ourShader.setVec3("pointLight[1].specular", glm::vec3(0.15, 0.15, 0.15));
         ourShader.setFloat("pointLight[1].constant", 1.0f);
@@ -313,7 +318,7 @@ int main() {
         ourShader.setFloat("pointLight[1].quadratic",  quadratic);
 
         ourShader.setVec3("pointLight[2].position", glm::vec3(19.25f, 3.62f,  3.2f));
-        ourShader.setVec3("pointLight[2].ambient", glm::vec3(0.1, 0.1, 0.1));
+        ourShader.setVec3("pointLight[2].ambient",ambient);
         ourShader.setVec3("pointLight[2].diffuse", glm::vec3(0.4, 0.4, 0.4));
         ourShader.setVec3("pointLight[2].specular", glm::vec3(0.15, 0.15, 0.15));
         ourShader.setFloat("pointLight[2].constant", 1.0f);
@@ -321,23 +326,23 @@ int main() {
         ourShader.setFloat("pointLight[2].quadratic",  quadratic);
 
         ourShader.setVec3("pointLight[3].position", glm::vec3(35.15f, 3.62f,  3.0f));
-        ourShader.setVec3("pointLight[3].ambient", glm::vec3(0.1, 0.1, 0.1));
+        ourShader.setVec3("pointLight[3].ambient", ambient);
         ourShader.setVec3("pointLight[3].diffuse", glm::vec3(0.4, 0.4, 0.4));
         ourShader.setVec3("pointLight[3].specular", glm::vec3(0.15, 0.15, 0.15));
         ourShader.setFloat("pointLight[3].constant", 1.0f);
         ourShader.setFloat("pointLight[3].linear", linear);
         ourShader.setFloat("pointLight[3].quadratic",  quadratic);
 
-        ourShader.setVec3("pointLight[4].position", glm::vec3(34.65f, 1.32f,  -11.75f));
-        ourShader.setVec3("pointLight[4].ambient", glm::vec3(0.1, 0.1, 0.1));
-        ourShader.setVec3("pointLight[4].diffuse", glm::vec3(0.4, 0.4, 0.4));
+        ourShader.setVec3("pointLight[4].position", glm::vec3(-4.6f, 1.15f, -2.6f));
+        ourShader.setVec3("pointLight[4].ambient", ambient);
+        ourShader.setVec3("pointLight[4].diffuse", glm::vec3(1.7, 1.7, 0.4));
         ourShader.setVec3("pointLight[4].specular", glm::vec3(0.15, 0.15, 0.15));
         ourShader.setFloat("pointLight[4].constant", 1.0f);
         ourShader.setFloat("pointLight[4].linear", linear);
         ourShader.setFloat("pointLight[4].quadratic",  quadratic);
 
         ourShader.setVec3("pointLight[5].position", glm::vec3(-5.9f, 1.32f,  -11.75f));
-        ourShader.setVec3("pointLight[5].ambient", glm::vec3(0.1, 0.1, 0.1));
+        ourShader.setVec3("pointLight[5].ambient", ambient);
         ourShader.setVec3("pointLight[5].diffuse", glm::vec3(0.4, 0.4, 0.4));
         ourShader.setVec3("pointLight[5].specular", glm::vec3(0.15, 0.15, 0.15));
         ourShader.setFloat("pointLight[5].constant", 1.0f);
@@ -345,7 +350,7 @@ int main() {
         ourShader.setFloat("pointLight[5].quadratic",  quadratic);
 
         ourShader.setVec3("pointLight[6].position", glm::vec3(-19.7f, 3.62f,  -9.35f));
-        ourShader.setVec3("pointLight[6].ambient", glm::vec3(0.1, 0.1, 0.1));
+        ourShader.setVec3("pointLight[6].ambient", ambient);
         ourShader.setVec3("pointLight[6].diffuse", glm::vec3(0.4, 0.4, 0.4));
         ourShader.setVec3("pointLight[6].specular", glm::vec3(0.15, 0.15, 0.15));
         ourShader.setFloat("pointLight[6].constant", 1.0f);
@@ -353,7 +358,7 @@ int main() {
         ourShader.setFloat("pointLight[6].quadratic",  quadratic);
 
         ourShader.setVec3("pointLight[7].position", glm::vec3(20.95f, 3.62f,  -9.44f));
-        ourShader.setVec3("pointLight[7].ambient", glm::vec3(0.1, 0.1, 0.1));
+        ourShader.setVec3("pointLight[7].ambient", ambient);
         ourShader.setVec3("pointLight[7].diffuse", glm::vec3(0.4, 0.4, 0.4));
         ourShader.setVec3("pointLight[7].specular", glm::vec3(0.15, 0.15, 0.15));
         ourShader.setFloat("pointLight[7].constant", 1.0f);
@@ -395,8 +400,21 @@ int main() {
         model = glm::scale(model, glm::vec3(1.45f,1.45f,1.45f));
         ourShader.setMat4("model", model);
         streetLight.Draw(ourShader);
+
+        model = glm::mat4(1.0f);
+        model = glm::translate(model,
+                               glm::vec3(-5.5f, -3.0f, -2.8f));
+        model = glm::scale(model, glm::vec3(1.45f,1.45f,1.45f));
+        ourShader.setMat4("model", model);
+        streetLight2.Draw(ourShader);
         glDisable(GL_CULL_FACE);
 
+        blendingShader.use();
+        projection = glm::perspective(glm::radians(camera.Zoom), (float)SCR_WIDTH / (float)SCR_HEIGHT, 0.1f, 100.0f);
+        view = camera.GetViewMatrix();
+        model = glm::mat4(1.0f);
+        blendingShader.setMat4("projection", projection);
+        blendingShader.setMat4("view", view);
         glBindVertexArray(transparentVAO);
         glBindTexture(GL_TEXTURE_2D, transparentTexture);
         for (unsigned int i = 0; i < graffiti.size(); i++)
@@ -406,11 +424,10 @@ int main() {
             model = glm::scale(model, glm::vec3(2.5f));
             if(i==2) {
                 model = glm::rotate(model, glm::radians(90.0f), glm::vec3(0.0, 1.0, 0.0));
-                model = glm::scale(model, glm::vec3(0.6f));
+                model = glm::scale(model, glm::vec3(0.5f));
             }
-            if(i==3) {
-                model = glm::rotate(model, glm::radians(90.0f), glm::vec3(0.0, 1.0, 0.0));
-                model = glm::scale(model, glm::vec3(0.15f));
+            if(i==1) {
+                model = glm::scale(model, glm::vec3(0.45f));
             }
             blendingShader.setMat4("model", model);
             glDrawArrays(GL_TRIANGLES, 0, 6);
@@ -606,6 +623,7 @@ unsigned int loadTexture(char const * path)
 
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, format == GL_RGBA ? GL_CLAMP_TO_EDGE : GL_REPEAT); // for this tutorial: use GL_CLAMP_TO_EDGE to prevent semi-transparent borders. Due to interpolation it takes texels from next repeat
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, format == GL_RGBA ? GL_CLAMP_TO_EDGE : GL_REPEAT);
+
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
 
