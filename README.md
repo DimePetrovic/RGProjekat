@@ -2,7 +2,7 @@ The Day after
 
 Napusteni grad, isaran grafitima, nakon velike humanitarne krize...
 
-Youtube link: 
+Youtube link: https://youtu.be/LSCLO8-di5U
 
 Uputsvo
 

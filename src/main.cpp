@@ -298,11 +298,11 @@ int main() {
 
         float linear=0.35f;
         float quadratic=0.44f;
-        glm::vec3 ambient=glm::vec3(0.2f, 0.2f, 0.2f);
+        glm::vec3 ambient=glm::vec3(0.15f, 0.15f, 0.15f);
 
         ourShader.setVec3("pointLight[0].position", glm::vec3(33.8f, 1.15f, -2.8f));
         ourShader.setVec3("pointLight[0].ambient", ambient);
-        ourShader.setVec3("pointLight[0].diffuse", glm::vec3(1.7f, 1.7, 1.0));
+        ourShader.setVec3("pointLight[0].diffuse", glm::vec3(2.5f, 2.5, 1.0));
         ourShader.setVec3("pointLight[0].specular", glm::vec3(0.15, 0.15, 0.15));
         ourShader.setFloat("pointLight[0].constant", 1.0f);
         ourShader.setFloat("pointLight[0].linear", linear);
@@ -334,7 +334,7 @@ int main() {
 
         ourShader.setVec3("pointLight[4].position", glm::vec3(-4.6f, 1.15f, -2.6f));
         ourShader.setVec3("pointLight[4].ambient", ambient);
-        ourShader.setVec3("pointLight[4].diffuse", glm::vec3(1.7, 1.7, 0.4));
+        ourShader.setVec3("pointLight[4].diffuse", glm::vec3(2.5, 2.5, 0.4));
         ourShader.setVec3("pointLight[4].specular", glm::vec3(0.15, 0.15, 0.15));
         ourShader.setFloat("pointLight[4].constant", 1.0f);
         ourShader.setFloat("pointLight[4].linear", linear);
